@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.thecoffeeshopmanagement.orderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/ownFragment"
+        android:name="com.example.thecoffeeshopmanagement.MenuFragment"
+        android:label="fragment_own"
+        tools:layout="@layout/fragment_menu"/>
+    <fragment
+        android:id="@+id/bossFragment"
+        android:name="com.example.thecoffeeshopmanagement.staffFragment"
+        android:label="fragment_boss"
+        tools:layout="@layout/fragment_staff" />
+</navigation>

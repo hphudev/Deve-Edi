@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="412" height="870" viewBox="0 0 412 870">
+  <defs>
+    <clipPath id="clip-background">
+      <rect width="412" height="870"/>
+    </clipPath>
+  </defs>
+  <g id="background" clip-path="url(#clip-background)">
+    <rect width="412" height="870" fill="#fff"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(1 -5)">
+      <g id="Group_3" data-name="Group 3">
+        <g id="Group_2" data-name="Group 2">
+          <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(206 18)" fill="#161515" stroke="#707070" stroke-width="1">
+            <circle cx="63" cy="63" r="63" stroke="none"/>
+            <circle cx="63" cy="63" r="62.5" fill="none"/>
+          </g>
+          <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(-72 -104)" fill="#f50" stroke="#707070" stroke-width="1">
+            <circle cx="161" cy="161" r="161" stroke="none"/>
+            <circle cx="161" cy="161" r="160.5" fill="none"/>
+          </g>
+          <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(-38 162)" fill="#141313" stroke="#707070" stroke-width="1">
+            <circle cx="63" cy="63" r="63" stroke="none"/>
+            <circle cx="63" cy="63" r="62.5" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
