@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.thecoffeeshopmanagement.orderFragment"
+        android:name="com.example.thecoffeeshopmanagement.homeFragment"
         android:label="fragment_order"
-        tools:layout="@layout/fragment_order" />
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/ownFragment"
-        android:name="com.example.thecoffeeshopmanagement.MenuFragment"
+        android:name="com.example.thecoffeeshopmanagement.ownFragment"
         android:label="fragment_own"
-        tools:layout="@layout/fragment_menu"/>
+        tools:layout="@layout/fragment_own"/>
     <fragment
         android:id="@+id/bossFragment"
-        android:name="com.example.thecoffeeshopmanagement.staffFragment"
+        android:name="com.example.thecoffeeshopmanagement.bossFragment"
         android:label="fragment_boss"
-        tools:layout="@layout/fragment_staff" />
+        tools:layout="@layout/fragment_boss" />
 </navigation>
