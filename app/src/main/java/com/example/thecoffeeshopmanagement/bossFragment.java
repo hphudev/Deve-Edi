@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link staffFragment#newInstance} factory method to
+ * Use the {@link bossFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class staffFragment extends Fragment {
+public class bossFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class staffFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public staffFragment() {
+    public bossFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class staffFragment extends Fragment {
      * @return A new instance of fragment staffFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static staffFragment newInstance(String param1, String param2) {
-        staffFragment fragment = new staffFragment();
+    public static bossFragment newInstance(String param1, String param2) {
+        bossFragment fragment = new bossFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class staffFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff, container, false);
+        return inflater.inflate(R.layout.fragment_boss, container, false);
     }
 }
