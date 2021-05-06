@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     tools:context=".SplashActivity">
 
     <ImageView
@@ -16,14 +15,15 @@
         android:src="@drawable/splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintVertical_bias="0.0">
 
     </ImageView>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
+        android:id="@+id/lottieAnimationView_logo"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/ivTitle"
@@ -33,18 +33,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:lottie_autoPlay="true"
-        app:lottie_repeatCount="100"
-        app:lottie_rawRes='@raw/splash_coffee' />
+        app:lottie_rawRes='@raw/splash_coffee'
+        app:lottie_repeatCount="100" />
 
     <ImageView
         android:id="@+id/ivTitle"
         android:layout_width="wrap_content"
         android:layout_height="107dp"
-        android:layout_marginBottom="336dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/title"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="300dp"
+        android:gravity="center"
+        android:text="lợi ích đa phức hợp "
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
