@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FCF7FE"
+    android:orientation="vertical"
+    tools:context="com.example.RestaurantManagement.LoginMenuActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="#FDFDFE"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitXY"
+        android:src="@drawable/logodeveedi" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_5dp"
+        android:backgroundTint="#4151E1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/facebook_96px" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:text="Đăng nhập bằng Facebook"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            app:backgroundTint="#4151E1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_5dp"
+        android:backgroundTint="#FF5220"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/google_plus_squared_96px" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:text="Đăng nhập bằng Google"
+            android:layout_marginRight="5dp"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:backgroundTint="#FF5220" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_5dp"
+        android:backgroundTint="#4CAF50"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/phone_500px" />
+        <Button
+            android:id="@+id/btnLoginNormal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_marginRight="5dp"
+            android:text="Đăng nhập bằng Số điện thoại hoặc email"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:backgroundTint="#4CAF50" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Bạn chưa có tài khoản?"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Đăng ký"
+            android:textColor="#FF5722"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</LinearLayout>

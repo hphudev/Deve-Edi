@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:background="@drawable/bg_rectangle_shape_white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvIdTable"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="45"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/circle_blue"/>
+        <TextView
+            android:id="@+id/tvNumCustomer"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:text="100"
+            android:lines="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/ic_person_24"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_rectangle_shape_white"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnChooseItem"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="3dp"
+            android:backgroundTint="@color/white"
+            android:gravity="left"
+            android:text="Bún rêu bò (3), Bún rêu cua (3)"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:backgroundTint="#FFFFFF"/>
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="150.000"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_rectangle_shape_white"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:drawableLeft="@drawable/ic_cancel_24"
+                android:text="Hủy"
+                />
+            <Button
+                android:id="@+id/btnPay"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/ic_money_24"
+                android:text="Thu tiền"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

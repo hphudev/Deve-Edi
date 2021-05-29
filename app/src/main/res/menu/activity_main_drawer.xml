@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sell"
+            android:icon="@drawable/ic_sell_24"
+            android:title="@string/ban_hang" />
+<!--        <item-->
+<!--            android:id="@+id/nav_employee"-->
+<!--            android:icon="@drawable/ic_employee_24"-->
+<!--            android:title="@string/lam_thue" />-->
+        <item
+            android:id="@+id/nav_res_menu"
+            android:icon="@drawable/ic_restaurant_menu_24"
+            android:title="@string/thuc_don" />
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_chart_24"
+            android:title="@string/bao_cao" />
+    </group>
+
+    <item android:title="@string/thiet_lap_du_lieu">
+        <menu>
+            <item
+                android:id="@+id/nav_save_data"
+                android:icon="@drawable/ic_saver_on_24"
+                android:title="@string/sao_luu_du_lieu" />
+            <item
+                android:id="@+id/nav_recovery"
+                android:icon="@drawable/ic_recycling_24"
+                android:title="@string/phuc_hoi_du_lieu" />
+            <item
+                android:id="@+id/nav_connect_account"
+                android:icon="@drawable/ic_link_24"
+                android:title="@string/lien_ket_tai_khoan" />
+        </menu>
+    </item>
+
+    <item android:title="@string/tro_giup">
+        <menu>
+            <item
+                android:id="@+id/nav_announment"
+                android:icon="@drawable/ic_doorbell_24"
+                android:title="@string/thong_bao" />
+            <item
+                android:id="@+id/nav_introduce"
+                android:icon="@drawable/ic_contact_24"
+                android:title="@string/gioi_thieu_cho_ban" />
+            <item
+                android:id="@+id/nav_appreciate"
+                android:icon="@drawable/ic_stars_24"
+                android:title="@string/danh_gia_ung_dung" />
+            <item
+                android:id="@+id/nav_your_opinion"
+                android:icon="@drawable/ic_email_24"
+                android:title= "@string/gop_y_nha_phat_trien" />
+            <item
+                android:id="@+id/nav_information"
+                android:icon="@drawable/ic_info_24"
+                android:title="@string/thong_tin_san_pham" />
+        </menu>
+    </item>
+
+    <item android:title="@string/tai_khoan">
+        <menu>
+            <item
+                android:id="@+id/nav_recovery_password"
+                android:icon="@drawable/ic_key_24"
+                android:title="@string/dat_lai_mat_khau" />
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_logout_24"
+                android:title="@string/dang_xuat" />
+        </menu>
+    </item>
+</menu>

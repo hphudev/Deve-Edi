@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.RestaurantManagement.RegisterActivity">
+
+    <TextView
+        android:id="@+id/tvTitleUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Số điện thoại hoặc email"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Nhập số điện thoại hoặc email"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleUsername" />
+
+    <LinearLayout
+        android:id="@+id/llLineOne"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Grey"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtUserName" />
+
+    <TextView
+        android:id="@+id/tvTitlePassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"
+        android:text="Mật khẩu"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llLineOne" />
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Nhập mật khẩu"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitlePassword" />
+    <LinearLayout
+        android:id="@+id/llLineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/Grey"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="ĐĂNG KÝ"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/comment"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="14dp"
+        android:textSize="13sp"
+        android:textColor="#014A83"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="left" />
+</androidx.constraintlayout.widget.ConstraintLayout>

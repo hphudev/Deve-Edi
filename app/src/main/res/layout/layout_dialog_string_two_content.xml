@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_corner_16"
+    android:orientation="vertical"
+    android:layout_margin="16dp">
+
+    <TextView
+        android:id="@+id/tvTitle_dialog_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TITLE"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/bg_teal700_corner_16_top_left_top_right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTurial_dialog_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="Please send us your feedback"/>
+
+        <EditText
+            android:id="@+id/edtContentOne_dialog_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_white_corner_10_border_gray"
+            android:hint="hint"
+            android:padding="12dp" />
+        <EditText
+            android:id="@+id/edtContentTwo_dialog_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_white_corner_10_border_gray"
+            android:hint="hint"
+            android:padding="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancle_dialog_string"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_gray_corner_10"
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="Hủy bỏ"
+                android:textStyle="bold"
+                android:alpha="0.8"
+                android:textSize="13sp"
+                app:backgroundTint="@android:color/darker_gray" />
+
+            <Button
+                android:id="@+id/btnSave_dialog_string"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_teal700_corner_10"
+                android:text="Lưu Lại"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                app:backgroundTint="@color/teal_700" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
