@@ -39,6 +39,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation "com.maltaisn:calcdialog:2.2.0"
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation files('..\\Library\\activation.jar')
+    implementation files('..\\Library\\additionnal.jar')
+    implementation files('..\\Library\\additionnal.jar')
+    implementation files('..\\Library\\mail.jar')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

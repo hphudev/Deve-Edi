@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SendEmailHandler sendEmailHandler =
+                new SendEmailHandler("truongvinhthai2506@gmail.com", "27112001");
+        sendEmailHandler.sendMail("This is subject", "This is body",
+                "truongvinhthai2506@gmail.com", "19520940@gm.uit.edu.vn");
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
