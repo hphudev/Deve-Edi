@@ -1,6 +1,9 @@
 package com.example.RestaurantManagement;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -10,11 +13,18 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.RestaurantManagement.ui.TranAlertDialog;
 import com.example.RestaurantManagement.ui.restaurant_menu.RestaurantMenuFragment;
 import com.example.RestaurantManagement.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -25,6 +35,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Dialog_string_interface, Dialog_string_two_content_interface, RestaurantMenuFragment.OnSelectedListener {
 
@@ -40,8 +53,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                finishAffinity();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -75,11 +89,17 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
 //                    case R.id.nav_connect_account:
 //                        onCreateConnectAccountActivity();
 //                        break;
+                    case  R.id.nav_your_opinion:
+                        composeEmail("Deve Edi - Phản hồi từ người dùng");
+                        break;
                     case R.id.nav_recovery_password:
-                        onCreateDialogChangePassword(false);
+                        onCreateDialogChangePassword(true);
                         break;
                     case R.id.nav_information:
                         onCreateProductInformationActivity();
+                        break;
+                    case  R.id.nav_sign_out:
+                        finish();
                         break;
                     default:
                         break;
@@ -105,6 +125,17 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void composeEmail(String subject) {
+        String[] addresses = {"ycc.yennhi@gmail.com", "deveediapp@gmail.com"};
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -207,8 +238,8 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
                     DialogStringTwoContentCustom dialog = new DialogStringTwoContentCustom(
                             "Thay đổi mật khẩu",
                             "Thay đổi mật khẩu",
-                            "Nhập mật khẩu cũ",
                             "Nhập mật khẩu mới",
+                            "Nhập lại mật khẩu",
                             "",
                             "",
                             -1,
@@ -230,11 +261,47 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
 
     @Override
     public void onButtonSaveClicked(int position, String contentOne, String contentTwo) {
-        Toast.makeText(this, "Thay đổi thành công 1!", Toast.LENGTH_SHORT).show();
+
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Đang đổi mật khẩu...");
+        progressDialog.show();
+        User.setPassword(contentOne);
+        Map<String, Object> user = new HashMap<>();
+        user.put("id", User.getId());
+        user.put("email", User.getEmail());
+        user.put("password", User.getPassword());
+        FirebaseFirestore.getInstance().collection("user")
+                .whereEqualTo("email", User.getEmail())
+                .get()
+                .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && task.getResult().getDocuments().size() > 0)
+                        {
+                            FirebaseFirestore.getInstance().collection("user")
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .set(user, SetOptions.merge())
+                                    .addOnSuccessListener(MainActivity.this, new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            progressDialog.dismiss();
+                                            TranAlertDialog dialog = new TranAlertDialog(
+                                                    "THÀNH CÔNG",
+                                                    "Đã đổi mật khẩu thành công!",
+                                                    R.drawable.ic_settings_suggest_24
+                                            );
+                                            dialog.show(getSupportFragmentManager(), "dialog");
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 
     @Override
     public void onButtonSaveClicked(int position, String content) {
+
         Toast.makeText(this, "Thay đổi thành công 2!", Toast.LENGTH_SHORT).show();
     }
 }

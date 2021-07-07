@@ -305,8 +305,9 @@ public class Item {
                                                         StorageReference storageRef = storage.getReference();
                                                         Uri file = Uri.parse(getImage_url());
                                                         StorageReference riversRef = storageRef.child("restaurants/" + Restaurant.getId() + "/" + item.get("id"));
-                                                        UploadTask uploadTask = riversRef.putFile(file);
-                                                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                                                        //UploadTask uploadTask =
+                                                        riversRef.putFile(file)
+                                                        .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception exception) {
                                                                 progressDialog.dismiss();
@@ -316,19 +317,19 @@ public class Item {
                                                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                             @Override
                                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                                progressDialog.dismiss();
-                                                                TranAlertDialog dialog = new TranAlertDialog(
-                                                                        "THÀNH CÔNG",
-                                                                        "Đã sửa món thành công!",
-                                                                        R.drawable.ic_check_circle_24);
-                                                                dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
                                                                 new Handler().postDelayed(new Runnable() {
                                                                     @Override
                                                                     public void run() {
+                                                                        progressDialog.dismiss();
+                                                                        TranAlertDialog dialog = new TranAlertDialog(
+                                                                                "THÀNH CÔNG",
+                                                                                "Đã sửa món thành công!",
+                                                                                R.drawable.ic_check_circle_24);
+                                                                        dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
                                                                         item_interface = (onItemExInterface) getContext();
                                                                         item_interface.AddItemSuccess();
                                                                     }
-                                                                }, 1000);
+                                                                }, 5000);
                                                             }
                                                         });
                                                     }

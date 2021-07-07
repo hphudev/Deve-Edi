@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:singleLine="true"
             android:background="@drawable/bg_white_corner_10_border_gray"
             android:hint="hint"
             android:padding="12dp" />

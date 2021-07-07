@@ -35,6 +35,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_5dp"
+            android:singleLine="true"
             android:ems="10"
             android:hint="Nhập email"
             android:inputType="textPersonName"
@@ -65,6 +66,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_5dp"
+            android:singleLine="true"
             android:ems="10"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
@@ -102,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

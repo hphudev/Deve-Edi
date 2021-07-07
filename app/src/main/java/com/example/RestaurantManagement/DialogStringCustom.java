@@ -25,7 +25,7 @@ public class DialogStringCustom{
         Turial = turial;
         HintEditText = hintEditText;
         this.context = context;
-        this.dialog_string_interface = dialog_string_interface;
+        this.dialog_string_interface = (Dialog_string_interface)context;
         TextEditText = textEditText;
         Position = position;
     }

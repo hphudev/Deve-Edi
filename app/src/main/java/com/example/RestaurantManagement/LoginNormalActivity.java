@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,15 +30,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-public class LoginNormalActivity extends AppCompatActivity implements LoginNormal_Interface{
+public class LoginNormalActivity extends AppCompatActivity implements LoginNormal_Interface, JavaMailAPI.onInterface, Dialog_string_interface{
 
     int size = -1;
     private FirebaseFirestore db;
     private EditText username;
     private EditText password;
     private TextInputLayout layout;
+    private TextView tvForgotPassword;
+    private int otp;
 
     @Override
     public void VisiWarming() {
@@ -61,6 +65,13 @@ public class LoginNormalActivity extends AppCompatActivity implements LoginNorma
         CreateImangeButtonInfo();
         username = (EditText)findViewById(R.id.edtUserName);
         password = (EditText)findViewById(R.id.edtPassword);
+        tvForgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendMail();
+            }
+        });
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,6 +91,54 @@ public class LoginNormalActivity extends AppCompatActivity implements LoginNorma
         db = FirebaseFirestore.getInstance();
 
         User.setLoginNormalInterface(LoginNormalActivity.this);
+    }
+
+    private void SendMail()
+    {
+        String toEmail = username.getText().toString().trim();
+        if (toEmail.equals(""))
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    "Vui lòng nhập email!",
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+            return;
+        }
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang kiểm tra...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        db = FirebaseFirestore.getInstance();
+        db.collection("user")
+                .whereEqualTo("email", toEmail)
+                .get(Source.SERVER)
+                .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful() && task.getResult().getDocuments().size() > 0)
+                        {
+                            Random r = new Random();
+                            otp = r.nextInt(1000000 - 100000) + 100000;
+                            String message = "Mã OTP của bạn là: " + otp + ".";
+                            String subject = "DEVE EDI - LẤY LẠI MẬT KHẨU";
+                            JavaMailAPI javaMailAPI = new JavaMailAPI(LoginNormalActivity.this, toEmail, subject, message);
+                            javaMailAPI.execute();
+                        }
+                        else
+                        {
+                            TranAlertDialog dialog = new TranAlertDialog(
+                                    "CẢNH BÁO",
+                                    "Tài khoản này không tồn tại!",
+                                    R.drawable.ic_baseline_warning_24
+                            );
+                            dialog.show(getSupportFragmentManager(), "dialog");
+                        }
+                    }
+                });
+
     }
 
     @Override
@@ -220,6 +279,7 @@ public class LoginNormalActivity extends AppCompatActivity implements LoginNorma
                                                             @Override
                                                             public void run() {
                                                                 dialog.dismiss();
+                                                                password.setText("");
                                                                 Intent intent = new Intent(LoginNormalActivity.this, MainActivity.class);
                                                                 startActivity(intent);
                                                             }
@@ -293,7 +353,7 @@ public class LoginNormalActivity extends AppCompatActivity implements LoginNorma
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().trim() == "" || password.getText().toString().trim() == "")
+                if (username.getText().toString().trim().equals("") || password.getText().toString().trim().equals(""))
                 {
                     TranAlertDialog dialog = new TranAlertDialog(
                             "CẢNH BÁO",
@@ -321,4 +381,144 @@ public class LoginNormalActivity extends AppCompatActivity implements LoginNorma
     }
 
 
+    @Override
+    public void onSendSuccess() {
+        DialogStringCustom dialog = new DialogStringCustom(
+                this,
+                this,
+                "NHẬP MÃ OTP",
+                "Nhập mã OTP",
+                "Vui lòng nhập mã OTP",
+                "",
+                0
+        );
+        dialog.ShowDialogString(Gravity.CENTER);
+    }
+
+    @Override
+    public void onButtonSaveClicked(int position, String content) {
+        if (String.valueOf(otp).equals(content))
+        {
+            String semail = username.getText().toString().trim();
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Hệ thống đang kiểm tra...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            db = FirebaseFirestore.getInstance();
+            db.collection("user")
+                    .whereEqualTo("email", semail)
+                    .get(Source.SERVER)
+                    .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            int i = 0;
+                            progressDialog.dismiss();
+                            if (task.isSuccessful())
+                            {
+                                if (task.getResult() != null && task.getResult().size() > 0)
+                                {
+                                    User.setId(task.getResult().getDocuments().get(0).get("id").toString());
+                                    User.setPassword(task.getResult().getDocuments().get(0).get("password").toString());
+                                    User.setEmail(task.getResult().getDocuments().get(0).get("email").toString());
+                                    Restaurant.setId_user(User.getId());
+                                    db.collection("restaurant")
+                                            .whereEqualTo("id_user", User.getId())
+                                            .get(Source.SERVER)
+                                            .addOnCompleteListener(LoginNormalActivity.this, new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                        if (task.getResult() != null && task.getResult().size() > 0)
+                                                        {
+                                                            Restaurant.setId(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getDocuments().get(0).get("id")).toString());
+                                                            Restaurant.setPassword(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getDocuments().get(0).get("password")).toString());
+                                                            TranAlertDialog dialog = new TranAlertDialog(
+                                                                    "THÔNG BÁO",
+                                                                    "Đăng nhập thành công",
+                                                                    R.drawable.ic_baseline_info_2_24
+                                                            );
+                                                            dialog.show(getSupportFragmentManager(), "dialog");
+                                                            new Handler().postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+                                                                    Intent intent = new Intent(LoginNormalActivity.this, MainActivity.class);
+                                                                    startActivity(intent);
+                                                                }
+                                                            }, 1000);
+                                                        }
+                                                        else
+                                                        {
+                                                            TranAlertDialog dialog = new TranAlertDialog(
+                                                                    "LỖI",
+                                                                    "Hệ thống đã gặp lỗi!",
+                                                                    R.drawable.ic_baseline_dangerous_24
+                                                            );
+                                                            dialog.show(getSupportFragmentManager(), "dialog");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        TranAlertDialog dialog = new TranAlertDialog(
+                                                                "LỖI",
+                                                                "Hệ thống đã gặp lỗi!",
+                                                                R.drawable.ic_baseline_dangerous_24
+                                                        );
+                                                        dialog.show(getSupportFragmentManager(), "dialog");
+                                                    }
+                                                }
+                                            });
+                                }
+                                else
+                                {
+                                    TextView warming = (TextView)findViewById(R.id.textView5);
+                                    warming.setVisibility(View.VISIBLE);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            warming.setVisibility(View.GONE);
+                                        }
+                                    }, 5000);
+                                }
+
+                            }
+                            else
+                            {
+                                TranAlertDialog dialog = new TranAlertDialog(
+                                        "LỖI",
+                                        "Hệ thống đã gặp lỗi!",
+                                        R.drawable.ic_baseline_dangerous_24
+                                );
+                                dialog.show(getSupportFragmentManager(), "dialog");
+                            }
+                        }
+                    })
+                    .addOnCanceledListener(this, new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                            progressDialog.dismiss();
+                            TextView warming = (TextView)findViewById(R.id.textView5);
+                            warming.setVisibility(View.VISIBLE);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    warming.setVisibility(View.GONE);
+                                }
+                            }, 5000);
+                        }
+                    });
+            otp = -1;
+        }
+        else
+        {
+            otp = -1;
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    "Mã OTP đã bị hủy vì không đúng!",
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
+    }
 }

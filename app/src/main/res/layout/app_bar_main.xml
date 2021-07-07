@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_baseline_cast_connected_24" />
+        android:src="@drawable/shutdown" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

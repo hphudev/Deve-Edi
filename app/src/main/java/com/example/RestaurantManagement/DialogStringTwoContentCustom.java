@@ -148,9 +148,14 @@ public class DialogStringTwoContentCustom {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!(editTextContentOne.getText().equals("") || !editTextContentTwo.getText().equals("")))
+                if ((!(editTextContentOne.getText().toString().equals("") && !editTextContentTwo.getText().toString().equals("")))
+                    && (editTextContentOne.getText().toString().equals(editTextContentTwo.getText().toString())))
+                {
                     dialog_string_two_content_interface.onButtonSaveClicked(Position, editTextContentOne.getText().toString(), editTextContentTwo.getText().toString());
-                dialog.dismiss();
+                    dialog.dismiss();
+                }
+                else
+                    dialog.show();
             }
         });
         dialog.show();

@@ -3,10 +3,12 @@ package com.example.RestaurantManagement;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,18 +23,20 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements JavaMailAPI.onInterface, Dialog_string_interface{
 
     EditText edtUsername;
     EditText edtPassword;
     Button bRegis;
     FirebaseFirestore db;
+    int otp = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,11 +173,58 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show(getSupportFragmentManager(), "dialog");
                     return;
                 }
-                AddAccout();
+                SendMail();
             }
         });
     }
 
+    private void SendMail()
+    {
+        String toEmail = edtUsername.getText().toString().trim();
+        if (toEmail.equals(""))
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    "Vui lòng nhập email!",
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+            return;
+        }
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang kiểm tra...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        db = FirebaseFirestore.getInstance();
+        db.collection("user")
+                .whereEqualTo("email", toEmail)
+                .get(Source.SERVER)
+                .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful() && task.getResult().getDocuments().size() > 0)
+                        {
+                            TranAlertDialog dialog = new TranAlertDialog(
+                                    "CẢNH BÁO",
+                                    "Tài khoản này đã tồn tại!",
+                                    R.drawable.ic_baseline_warning_24
+                            );
+                            dialog.show(getSupportFragmentManager(), "dialog");
+                        }
+                        else
+                        {
+                            Random r = new Random();
+                            otp = r.nextInt(1000000 - 100000) + 100000;
+                            String message = "Mã xác nhận đăng ký của bạn là: " + otp + ".";
+                            String subject = "DEVE EDI - ĐĂNG KÝ TÀI KHOẢN";
+                            JavaMailAPI javaMailAPI = new JavaMailAPI(RegisterActivity.this, toEmail, subject, message);
+                            javaMailAPI.execute();
+                        }
+                    }
+                });
+
+    }
     private void InitActionBar()
     {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -191,5 +242,38 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSendSuccess() {
+        DialogStringCustom dialog = new DialogStringCustom(
+                this,
+                null,
+                "NHẬP MÃ XÁC NHẬN EMAIL",
+                "Nhập mã xác nhận email",
+                "Vui lòng nhập mã nhận email",
+                "",
+                0
+        );
+        dialog.ShowDialogString(Gravity.CENTER);
+    }
+
+    @Override
+    public void onButtonSaveClicked(int position, String content) {
+        if (String.valueOf(otp).equals(content))
+        {
+            AddAccout();
+            otp = -1;
+        }
+        else
+        {
+            otp = -1;
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    "Mã xác nhận đã bị hủy vì không đúng!",
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 }

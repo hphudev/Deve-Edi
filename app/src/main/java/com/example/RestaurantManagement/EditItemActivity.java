@@ -187,7 +187,7 @@ public class EditItemActivity extends AppCompatActivity implements CalcDialog.Ca
             dialog.show(getSupportFragmentManager(), "dialog");
             return;
         }
-        Toast.makeText(this, item.getId_unit(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, item.getId_unit(), Toast.LENGTH_SHORT).show();
         item.setName(edtName.getText().toString());
         item.setPrice(Integer.parseInt(value.toString()));
         item.UpdateItem();

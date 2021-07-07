@@ -86,6 +86,8 @@ public class RestaurantMenuFragment extends Fragment implements RestaurantMenuAd
     @Override
     public void onStart() {
         super.onStart();
+        Item.setActivity(getActivity());
+        Item.setContext(getContext());
         restaurantMenuViewModel.ClearItems();
         Item.GetAllItemInFirestore(restaurantMenuViewModel);
     }
@@ -93,8 +95,10 @@ public class RestaurantMenuFragment extends Fragment implements RestaurantMenuAd
     @Override
     public void onResume() {
         super.onResume();
-        restaurantMenuViewModel.ClearItems();
-        Item.GetAllItemInFirestore(restaurantMenuViewModel);
+//        Item.setActivity(getActivity());
+//        Item.setContext(getContext());
+//        restaurantMenuViewModel.ClearItems();
+//        Item.GetAllItemInFirestore(restaurantMenuViewModel);
     }
 
 
