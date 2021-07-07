@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.RestaurantManagement">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NavigationDrawerActivity">
-        <activity android:name="com.example.RestaurantManagement.ProductInformationActivity"></activity>
+        <activity android:name=".InvolkeActivity"></activity>
+        <activity android:name=".EditItemActivity" />
+        <activity android:name=".ProductInformationActivity" />
         <activity
-            android:name="com.example.RestaurantManagement.RegisterActivity"
+            android:name=".RegisterActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.example.RestaurantManagement.LoginNormalActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".LoginNormalActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/splash">
             <intent-filter>
@@ -28,31 +32,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.RestaurantManagement.LoginMenuActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".LoginMenuActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.ChooseItemActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".ChooseItemActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.ConnectAccountActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".ConnectAccountActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.RecoveryActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".RecoveryActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.BackupDataActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".BackupDataActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.UnitActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".UnitActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.RestaurantManagement.AddItemActivity"
+            android:name=".AddItemActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.example.RestaurantManagement.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NavigationDrawerActivity.NoActionBar"></activity>
+            android:theme="@style/Theme.NavigationDrawerActivity.NoActionBar" />
     </application>
 
 </manifest>

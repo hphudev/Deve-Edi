@@ -6,10 +6,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,16 +25,30 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.RestaurantManagement.R;
+import com.example.RestaurantManagement.ui.TranAlertDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public class UnitActivity extends AppCompatActivity implements RecycleViewInUnitClickInterFace, Dialog_string_interface {
+import static androidx.core.content.ContextCompat.getSystemService;
+
+public class UnitActivity extends AppCompatActivity implements RecycleViewInUnitClickInterFace, Dialog_string_interface, Unit_interface {
 
     private RecyclerView recyclerView;
     private UnitAdapter unitAdapter;
-    private UnitViewModel unitViewModel;
+    static public UnitViewModel unitViewModel;
+    private FirebaseFirestore db;
     private Button Finish;
+    private int scrollPositionX = 0;
+    private int scrollPositionY = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +56,15 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
         InitActionBar();
         onCreateRecycleView();
         onCreateButtonFinish();
+        InitFireStore();
+        Unit.setActivity(this);
+        Unit.setUnit_interface(this);
+        Unit.setContext(this);
+    }
 
-
+    private void InitFireStore()
+    {
+        db = FirebaseFirestore.getInstance();
     }
 
     private void onCreateButtonFinish()
@@ -58,6 +86,7 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("NameUnit", unitViewModel.getUnit(postion).getName());
+            bundle.putString("IdUnit", unitViewModel.getIdUnit());
             intent.putExtra("data", bundle);
             setResult(RESULT_OK, intent);
         }
@@ -74,13 +103,16 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
         recyclerView = (RecyclerView)findViewById(R.id.rcvUnit);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayout);
-
         unitViewModel = new ViewModelProvider(this).get(UnitViewModel.class);
         unitViewModel.getmListUnitLiveData().observe(this, new Observer<List<Unit>>() {
             @Override
             public void onChanged(List<Unit> units) {
                 unitAdapter = new UnitAdapter(units, UnitActivity.this);
+                int posX = recyclerView.computeHorizontalScrollOffset();
+                int posY = recyclerView.computeVerticalScrollOffset();
                 recyclerView.setAdapter(unitAdapter);
+                recyclerView.scrollToPosition(unitViewModel.getPosition() - 3);
+                //Toast.makeText(UnitActivity.this ,String.valueOf(recyclerView.getItemDecorationCount()),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -89,13 +121,15 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "Load các đơn vị tính trong hàm onStart tại UnitActivity",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("data");
+        String unitPresent = bundle.getString("present_unit");
         unitViewModel.ClearListUnit();
-        for (int i = 0; i < 3; i++)
-        {
-            unitViewModel.AddUnit(new Unit(false, "Name " + i));
-        }
+        ProgressDialog progressDialog = new ProgressDialog((this));
+        progressDialog.setTitle("Vui lòng chờ");
+        progressDialog.show();
+        Unit.GetAllUnitOnFireStore(db, unitViewModel, unitPresent);
+        progressDialog.dismiss();
     }
 
     private void InitActionBar()
@@ -137,6 +171,10 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
 
     @Override
     public void onItemClick(int position) {
+        if (unitViewModel.getPosition() == position)
+        {
+            return;
+        }
         unitViewModel.setPosition(position);
         unitViewModel.getUnit(position).setChecked(true);
         unitViewModel.SetUnit(position, unitViewModel.getUnit(position));
@@ -158,16 +196,144 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
     }
 
     @Override
+    public void onImageButtonDeleteClick(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("CÂU HỎI");
+        builder.setMessage("Bạn có muốn xóa đơn vị tính này không?");
+        builder.setIcon(R.drawable.ic_baseline_quiz_24);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                unitViewModel.getUnit(position).DeleteUnit();
+            }
+        });
+        builder.setNegativeButton("Bỏ qua", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
     public void onButtonSaveClicked(int position, String content) {
         if (position != -1)
         {
+            Unit unit = unitViewModel.getUnit(position);
+            unit.EditUnitOnFirebase(db, content, position);
+
+        }
+        else
+        {
+            Unit unit = new Unit(
+                    "",
+                    true,
+                    content,
+                    "");
+            unit.AddUnitOnFireStore(db);
+        }
+    }
+
+    @Override
+    public void onAddUnit(boolean isExist, Unit unit) {
+        if (Unit.progressDialog != null && Unit.progressDialog.isShowing())
+        {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Unit.progressDialog.dismiss();
+                }
+            }, 1000);
+        }
+        if (!isExist)
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    "Đơn vị tính này đã tồn tại!\nVui lòng nhập đơn vị tính khác!",
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+            return;
+        }
+        unitViewModel.AddUnit(unit);
+        unitViewModel.setPosition(unitViewModel.getSize() - 1);
+        for (int i = 0; i < unitViewModel.getSize() - 1; i++)
+        {
+            unitViewModel.getUnit(i).setChecked(false);
+            unitViewModel.SetUnit(i, unitViewModel.getUnit(i));
+        }
+        TranAlertDialog dialog = new TranAlertDialog(
+                "THÀNH CÔNG",
+                "Thêm đơn vị tính thành công!",
+                R.drawable.ic_check_circle_24
+        );
+        dialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onEditUnit(boolean isSuccess, int position, String content) {
+        if (Unit.progressDialog != null && Unit.progressDialog.isShowing())
+        {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Unit.progressDialog.dismiss();
+                }
+            }, 1000);
+        }
+        if (isSuccess)
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "THÀNH CÔNG",
+                    "Sửa đơn vị tính thành công!",
+                    R.drawable.ic_check_circle_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
             unitViewModel.getUnit(position).setName(content);
             unitViewModel.SetUnit(position, unitViewModel.getUnit(position));
         }
         else
         {
-            unitViewModel.AddUnit(new Unit(false, content));
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    content,
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
+    }
+
+    @Override
+    public void onGetUnit(boolean isSuccess, String content) {
+        if (Unit.progressDialog != null && Unit.progressDialog.isShowing())
+        {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Unit.progressDialog.dismiss();
+                }
+            }, 1000);
         }
 
+        if (isSuccess)
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    content,
+                    R.drawable.ic_baseline_warning_24
+            );
+        }
+        else
+        {
+            TranAlertDialog dialog = new TranAlertDialog(
+                    "CẢNH BÁO",
+                    content,
+                    R.drawable.ic_baseline_warning_24
+            );
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
+
 }

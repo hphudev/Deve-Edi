@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Navigation Drawer Activity</string>
+    <string name="app_name">Deve Edi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -28,18 +28,19 @@
     <string name="dat_lai_mat_khau">Đặt lại mật khẩu</string>
     <string name="dang_xuat">Đăng xuất</string>
     <string name="ten_mon">Tên món</string>
-    <string name="comment">Khi bấm vào đăng ký đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với thỏa thuận sử dụng dịch vụ của DEVE EDI</string>
+    <string name="comment">Khi bấm vào đăng ký đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với thỏa thuận sử dụng dịch vụ của DEVE EDI.</string>
     <string name="information"> <b>DEVE EDI</b> là ứng dụng miễn phí dành riêng cho các quán nhỏ
     và quầy di động phục vụ ăn uống giúp chủ quán ghi món, tính tiền, cộng sự và thống kê doanh thu bán hàng nhanh chóng
-    và dễ dàng trên điện thoại.<br /> <br />
+    và dễ dàng trên điện thoại.
     </string>
-<!--    <b>DEVE EDI</b> giúp chủ quán thực hiện các nghiệp vụ sau:<br /> <br />-->
-<!--    ► Cập nhật thực đơn của quán<br/>-->
-<!--    ► Ghi nhận các món khách gọi <br/>-->
-<!--    ► Tính tiền cho khách<br/>-->
-<!--    ► Thêm cộng sự bán hàng<br/>-->
-<!--    ► Xem thống kê doanh thu theo thời gian<br/>-->
-<!--    ► Xem thống kê doanh thu theo mặt hàng<br/>-->
-<!--    </string>-->
+    <!--    <b>DEVE EDI</b> giúp chủ quán thực hiện các nghiệp vụ sau:<br /> <br />-->
+    <!--    ► Cập nhật thực đơn của quán<br/>-->
+    <!--    ► Ghi nhận các món khách gọi <br/>-->
+    <!--    ► Tính tiền cho khách<br/>-->
+    <!--    ► Thêm cộng sự bán hàng<br/>-->
+    <!--    ► Xem thống kê doanh thu theo thời gian<br/>-->
+    <!--    ► Xem thống kê doanh thu theo mặt hàng<br/>-->
+    <!--    </string>-->
     <string name="edition">Phiên bản ứng dụng <b>1.0.0</b> </string>
+    <!--    <string name="default_web_client_id">phu-project-e8479</string>-->
 </resources>

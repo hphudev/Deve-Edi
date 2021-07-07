@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "840323454474",
+    "project_id": "phu-project-e8479",
+    "storage_bucket": "phu-project-e8479.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840323454474:android:137016dd518dc8f43ef1f3",
+        "android_client_info": {
+          "package_name": "com.example.RestaurantManagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840323454474-s0mt9qm59tbk42d8jnc1vm3f3vdjebib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm1cWcvPkruLqnP5V6udynflqQHG3Ci18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840323454474-s0mt9qm59tbk42d8jnc1vm3f3vdjebib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840323454474:android:0767e8539be6cda43ef1f3",
+        "android_client_info": {
+          "package_name": "com.example.navigationdraweractivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840323454474-s0mt9qm59tbk42d8jnc1vm3f3vdjebib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm1cWcvPkruLqnP5V6udynflqQHG3Ci18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840323454474-s0mt9qm59tbk42d8jnc1vm3f3vdjebib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,35 +6,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.RestaurantManagement.ui.home.HomeFragment">
-        <LinearLayout
-            android:layout_width="match_parent"
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#59DBE2E3"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <CheckedTextView
+            android:id="@+id/chtAutoUpdate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:orientation="vertical">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvResMenu"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tvCommentMenuIsEmty"
-            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:gravity="center"
+            android:text="Cập nhật tự động"
+            android:textColor="#F4511E"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/tvTurialMenuIsEmty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textColor="@color/teal_200"/>
+            android:layout_gravity="left"
+            android:text="CẬP NHẬT"
+            android:textSize="13sp"
+            app:backgroundTint="#F4511E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#039BE5"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResBill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E6E6E6"
+        android:layout_gravity="center" />
     </LinearLayout>

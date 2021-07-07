@@ -13,40 +13,20 @@
         android:layout_height="140dp"
         android:background="#FDFDFE"
         android:backgroundTint="@color/white"
-        android:scaleType="fitXY"
+        android:scaleType ="centerCrop"
         android:src="@drawable/logodeveedi" />
 
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/bg_5dp"
-        android:backgroundTint="#4151E1"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/facebook_96px" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left"
-            android:text="Đăng nhập bằng Facebook"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            android:layout_marginRight="5dp"
-            app:backgroundTint="#4151E1" />
-    </LinearLayout>
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/company" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/bg_5dp"
         android:backgroundTint="#FF5220"
@@ -58,11 +38,12 @@
             android:src="@drawable/google_plus_squared_96px" />
 
         <Button
+            android:id="@+id/btnGoogle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
             android:gravity="left"
             android:text="Đăng nhập bằng Google"
-            android:layout_marginRight="5dp"
             android:textSize="13dp"
             android:textStyle="bold"
             app:backgroundTint="#FF5220" />
@@ -81,14 +62,15 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/phone_500px" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/logotext" />
         <Button
             android:id="@+id/btnLoginNormal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
             android:layout_marginRight="5dp"
-            android:text="Đăng nhập bằng Số điện thoại hoặc email"
+            android:text="Đăng nhập bằng tài khoản Deve Edi"
             android:textSize="13dp"
             android:textStyle="bold"
             app:backgroundTint="#4CAF50" />
@@ -121,6 +103,5 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
-
 
 </LinearLayout>

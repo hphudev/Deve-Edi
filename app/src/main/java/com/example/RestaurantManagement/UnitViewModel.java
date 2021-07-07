@@ -55,6 +55,10 @@ public class UnitViewModel extends ViewModel {
         return 0;
     }
 
+    public String getIdUnit()
+    {
+        return mListUnit.get(position).getId();
+    }
     public void ClearListUnit()
     {
         mListUnit.clear();

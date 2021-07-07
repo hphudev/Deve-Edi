@@ -63,6 +63,7 @@ public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitViewHolder
         private ImageView ivCheck;
         private TextView tvUnitName;
         private ImageButton ibEdit;
+        private ImageButton ibDelete;
         private Context context;
         public UnitViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,11 +71,15 @@ public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.UnitViewHolder
             ivCheck = itemView.findViewById(R.id.ivTickUnit);
             tvUnitName = itemView.findViewById(R.id.tvUnitName);
             ibEdit = itemView.findViewById(R.id.ibEdit);
+            ibDelete = itemView.findViewById(R.id.ibDelete);
             itemView.setOnClickListener((View) -> {
                 recycleViewInUnitClickInterFace.onItemClick(getAdapterPosition());
             });
             ibEdit.setOnClickListener((View) -> {
                 recycleViewInUnitClickInterFace.onImageButtonInItemClick(getAdapterPosition());
+            });
+            ibDelete.setOnClickListener((View) -> {
+                recycleViewInUnitClickInterFace.onImageButtonDeleteClick(getAdapterPosition());
             });
 
         }

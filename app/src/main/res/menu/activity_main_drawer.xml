@@ -24,35 +24,32 @@
 
     <item android:title="@string/thiet_lap_du_lieu">
         <menu>
-            <item
-                android:id="@+id/nav_save_data"
-                android:icon="@drawable/ic_saver_on_24"
-                android:title="@string/sao_luu_du_lieu" />
-            <item
-                android:id="@+id/nav_recovery"
-                android:icon="@drawable/ic_recycling_24"
-                android:title="@string/phuc_hoi_du_lieu" />
-            <item
-                android:id="@+id/nav_connect_account"
-                android:icon="@drawable/ic_link_24"
-                android:title="@string/lien_ket_tai_khoan" />
+<!--            <item-->
+<!--                android:id="@+id/nav_save_data"-->
+<!--                android:icon="@drawable/ic_saver_on_24"-->
+<!--                android:title="@string/sao_luu_du_lieu" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_recovery"-->
+<!--                android:icon="@drawable/ic_recycling_24"-->
+<!--                android:title="@string/phuc_hoi_du_lieu" />-->
+
         </menu>
     </item>
 
     <item android:title="@string/tro_giup">
         <menu>
-            <item
-                android:id="@+id/nav_announment"
-                android:icon="@drawable/ic_doorbell_24"
-                android:title="@string/thong_bao" />
-            <item
-                android:id="@+id/nav_introduce"
-                android:icon="@drawable/ic_contact_24"
-                android:title="@string/gioi_thieu_cho_ban" />
-            <item
-                android:id="@+id/nav_appreciate"
-                android:icon="@drawable/ic_stars_24"
-                android:title="@string/danh_gia_ung_dung" />
+<!--            <item-->
+<!--                android:id="@+id/nav_announment"-->
+<!--                android:icon="@drawable/ic_doorbell_24"-->
+<!--                android:title="@string/thong_bao" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_introduce"-->
+<!--                android:icon="@drawable/ic_contact_24"-->
+<!--                android:title="@string/gioi_thieu_cho_ban" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_appreciate"-->
+<!--                android:icon="@drawable/ic_stars_24"-->
+<!--                android:title="@string/danh_gia_ung_dung" />-->
             <item
                 android:id="@+id/nav_your_opinion"
                 android:icon="@drawable/ic_email_24"

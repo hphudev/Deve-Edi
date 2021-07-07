@@ -24,19 +24,28 @@
 
             <TextView
                 android:id="@+id/tvUnitName"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:text="sample"
                 android:paddingLeft="10dp"
+                android:text="sample"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibEdit"
+                app:layout_constraintTop_toTopOf="parent" />
             <ImageButton
                 android:id="@+id/ibEdit"
                 android:layout_width="40dp"

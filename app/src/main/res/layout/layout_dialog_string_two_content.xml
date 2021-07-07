@@ -62,14 +62,14 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:textColor="@color/white"
+                android:alpha="0.8"
                 android:background="@drawable/bg_gray_corner_10"
                 android:backgroundTint="@android:color/darker_gray"
                 android:text="Hủy bỏ"
-                android:textStyle="bold"
-                android:alpha="0.8"
+                android:textColor="@color/white"
                 android:textSize="13sp"
-                app:backgroundTint="@android:color/darker_gray" />
+                android:textStyle="bold"
+                app:backgroundTint="@color/browser_actions_title_color" />
 
             <Button
                 android:id="@+id/btnSave_dialog_string"
@@ -78,9 +78,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_teal700_corner_10"
                 android:text="Lưu Lại"
-                android:textStyle="bold"
                 android:textSize="13sp"
-                app:backgroundTint="@color/teal_700" />
+                android:textStyle="bold"
+                app:backgroundTint="@color/blue" />
         </LinearLayout>
 
     </LinearLayout>

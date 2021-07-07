@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.RestaurantManagement.ui.restaurant_menu.RestaurantMenuFragment;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.tvEmailUI);
+        navUsername.setText(User.getEmail());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -63,15 +66,15 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
                 //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
                 switch (menuItem.getItemId())
                 {
-                    case R.id.nav_save_data:
-                        onCreateBackupActivity();
-                        break;
-                    case R.id.nav_recovery:
-                        onCreateRecoveryActivity();
-                        break;
-                    case R.id.nav_connect_account:
-                        onCreateConnectAccountActivity();
-                        break;
+//                    case R.id.nav_save_data:
+//                        onCreateBackupActivity();
+//                        break;
+//                    case R.id.nav_recovery:
+//                        onCreateRecoveryActivity();
+//                        break;
+//                    case R.id.nav_connect_account:
+//                        onCreateConnectAccountActivity();
+//                        break;
                     case R.id.nav_recovery_password:
                         onCreateDialogChangePassword(false);
                         break;
@@ -175,6 +178,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, ChooseItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_table", null);
+                intent.putExtra("data", bundle);
                 startActivity(intent);
             }
         }, 500);
