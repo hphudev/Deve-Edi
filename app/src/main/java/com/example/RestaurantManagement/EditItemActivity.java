@@ -117,7 +117,29 @@ public class EditItemActivity extends AppCompatActivity implements CalcDialog.Ca
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item.DeleteItem();
+                FirebaseFirestore.getInstance().collection("detail_bill")
+                        .whereEqualTo("id_res", Restaurant.getId())
+                        .whereEqualTo("id_item", item.getId())
+                        .get(Source.SERVER)
+                        .addOnCompleteListener(EditItemActivity.this, new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful())
+                                {
+                                    if (task.getResult().getDocuments().size() > 0)
+                                    {
+                                        TranAlertDialog dialog = new TranAlertDialog(
+                                                "CẢNH BÁO",
+                                                "Món này đang được gọi! Bạn không thể xóa!",
+                                                R.drawable.ic_baseline_warning_24
+                                        );
+                                        dialog.show(getSupportFragmentManager(), "dialog");
+                                        return;
+                                    }
+                                    item.DeleteItem();
+                                }
+                            }
+                        });
             }
         });
     }

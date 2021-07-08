@@ -95,10 +95,10 @@ public class RestaurantMenuFragment extends Fragment implements RestaurantMenuAd
     @Override
     public void onResume() {
         super.onResume();
-//        Item.setActivity(getActivity());
-//        Item.setContext(getContext());
-//        restaurantMenuViewModel.ClearItems();
-//        Item.GetAllItemInFirestore(restaurantMenuViewModel);
+        Item.setActivity(getActivity());
+        Item.setContext(getContext());
+        restaurantMenuViewModel.ClearItems();
+        Item.GetAllItemInFirestore(restaurantMenuViewModel);
     }
 
 

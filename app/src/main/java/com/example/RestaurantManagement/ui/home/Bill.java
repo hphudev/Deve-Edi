@@ -244,6 +244,7 @@ public class Bill {
                 String documentId = "";
                 try {
                     QuerySnapshot countId = Tasks.await(db.collection("bill")
+                            .whereEqualTo("id_res", Restaurant.getId())
                             .whereEqualTo("id_table", id_table)
                             .get());
                     documentId = countId.getDocuments().get(0).getId();
@@ -251,6 +252,33 @@ public class Bill {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+                int count = 0;
+                try {
+                    QuerySnapshot countId = Tasks.await(db.collection("bill")
+                            .whereEqualTo("id_res", Restaurant.getId())
+                            .whereEqualTo("id_table", getId_table())
+                            .get());
+                    count = countId.size();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (count > 0 && !id_table.equals(getId_table()))
+                {
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            TranAlertDialog dialog = new TranAlertDialog(
+                                    "CẢNH BÁO",
+                                    "ID bàn đã tồn tại!\nVui lòng nhập lại ID bàn!",
+                                    R.drawable.ic_baseline_warning_24);
+                            dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "dialog");
+                        }
+                    });
+                    return;
                 }
                 Map<String, Object> bill = new HashMap<>();
                 bill.put("id_res", Restaurant.getId());
@@ -317,6 +345,7 @@ public class Bill {
                 int count = 0;
                 try {
                     QuerySnapshot countId = Tasks.await(db.collection("bill")
+                            .whereEqualTo("id_res", Restaurant.getId())
                             .whereEqualTo("id_table", getId_table())
                             .get());
                     count = countId.size();
@@ -364,7 +393,13 @@ public class Bill {
                                             .addOnSuccessListener(getActivity(), new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
-
+                                                    ((Activity)getContext()).runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getContext(), "Đã thêm bàn thành công!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
                                                 }
                                             });
                                 }

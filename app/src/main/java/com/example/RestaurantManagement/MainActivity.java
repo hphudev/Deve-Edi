@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Dialog_string_int
     }
 
     public void composeEmail(String subject) {
-        String[] addresses = {"ycc.yennhi@gmail.com", "deveediapp@gmail.com"};
+        String[] addresses = {/*ycc.yennhi@gmail.com", */"deveediapp@gmail.com"};
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);

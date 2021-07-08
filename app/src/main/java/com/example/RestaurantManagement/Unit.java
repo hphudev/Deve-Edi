@@ -234,7 +234,7 @@ public class Unit {
         {
             TranAlertDialog dialog = new TranAlertDialog(
                     "CẢNH BÁO",
-                    "Không tìm thấy kết nối mạng!\\nVui lòng kiểm tra lại kết nối của bạn!",
+                    "Không tìm thấy kết nối mạng!\nVui lòng kiểm tra lại kết nối của bạn!",
                     R.drawable.ic_baseline_warning_24
             );
             dialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), "dialog");

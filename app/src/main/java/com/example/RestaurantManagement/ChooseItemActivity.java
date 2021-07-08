@@ -156,8 +156,6 @@ public class ChooseItemActivity extends AppCompatActivity implements CalcDialog.
                     bill.UpdateBillOnFireStore(id_table_tmp);
                 }
 
-                finish();
-
             }
         });
     }

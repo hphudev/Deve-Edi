@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.HashMap;
 import java.util.List;
@@ -205,7 +206,30 @@ public class UnitActivity extends AppCompatActivity implements RecycleViewInUnit
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                unitViewModel.getUnit(position).DeleteUnit();
+                FirebaseFirestore.getInstance().collection("item")
+                        .whereEqualTo("id_res", Restaurant.getId())
+                        .whereEqualTo("id_unit", unitViewModel.getUnit(position).getId())
+                        .get(Source.SERVER)
+                        .addOnCompleteListener(UnitActivity.this, new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful())
+                                {
+                                    if (task.getResult().getDocuments().size() > 0)
+                                    {
+                                        TranAlertDialog dialog = new TranAlertDialog(
+                                                "CẢNH BÁO",
+                                                "Đơn vị tính này đang được dùng!\n Bạn không thể xóa!",
+                                                R.drawable.ic_baseline_warning_24
+                                        );
+                                        dialog.show(getSupportFragmentManager(), "dialog");
+                                        return;
+                                    }
+                                    unitViewModel.getUnit(position).DeleteUnit();
+                                }
+                            }
+                        });
+
             }
         });
         builder.setNegativeButton("Bỏ qua", new DialogInterface.OnClickListener() {

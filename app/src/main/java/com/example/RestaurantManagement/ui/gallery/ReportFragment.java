@@ -3,6 +3,8 @@ package com.example.RestaurantManagement.ui.gallery;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -85,11 +87,6 @@ public class ReportFragment extends Fragment {
                     forYear();
                 }
 
-                if (spnCategory.getSelectedItem().toString().equals("Báo cáo theo năm"))
-                {
-                    forYear();
-                }
-
                 if (spnCategory.getSelectedItem().toString().equals("Báo cáo theo ngày trong tháng"))
                 {
                     forDay();
@@ -103,7 +100,14 @@ public class ReportFragment extends Fragment {
             }
         });
         chart = root.findViewById(R.id.barchart);
+        setHasOptionsMenu(false);
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     @Override
@@ -241,7 +245,12 @@ public class ReportFragment extends Fragment {
                         count++;
                         String date = document.get("date").toString();
                         int day = getDay(date);
-                        if (Calendar.getInstance().get(Calendar.MONTH) == getMonth(date)
+                        int month = getMonth(date);
+                        if (date.equals("8/7/2021"))
+                        {
+                            int j = 0;
+                        }
+                        if (month == 7
                             && Calendar.getInstance().get(Calendar.YEAR) == getYear(date))
                         total[day] += Integer.parseInt(document.get("total").toString());
                     }
